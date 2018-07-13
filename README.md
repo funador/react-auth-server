@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-```js
+```javascript
 git clone https://github.com/funador/react-auth-server.git
 cd react-auth-server
 npm run dev
@@ -20,7 +20,7 @@ I also had to open a seperate tab for https://localhost:8080 and accept the secu
 If you only want to use Twitter authentication (https is not required), follow the instructions in [this branch](https://github.com/funador/react-auth-client/tree/twitter-auth)
 
 ## Setting up your .env file
-```js
+```javascript
 touch .env
 // open .env and add values for: TWITTER_KEY, TWITTER_SECRET, GOOGLE_KEY, 
 // GOOGLE_SECRET, FACEBOOK_KEY, FACEBOOK_SECRET, GITHUB_KEY, GITHUB_SECRET
