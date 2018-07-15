@@ -41,6 +41,7 @@ app.use(session({
 
 const io = socketio(server)
 app.set('socketio', io)
+
 io.sockets.on('connection', socket => {
   socket.on('auth', provider => {   
     socket.join(provider)
