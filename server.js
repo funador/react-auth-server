@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
   server = http.createServer(app)
 }
 // We are not in production so load up our certificates to be able to 
-// run the server in https
+// run the server in https mode locally
 else {
   const certOptions = {
     key: fs.readFileSync(path.resolve('certs/server.key')),
@@ -31,7 +31,7 @@ else {
 // Setup for passport and to accept JSON objects
 app.use(express.json())
 app.use(passport.initialize())
-passportInit(passport)
+passportInit()
 
 // Accept requests from our client
 app.use(cors({
@@ -49,7 +49,7 @@ app.use(session({
 // Connecting sockets to the server and adding them to the request 
 // so that we can access them later in the controller
 const io = socketio(server)
-app.set('socketio', io)
+app.set('io', io)
 
 // Catch a start up request so that a sleepy Heroku instance can  
 // be responsive as soon as possible
