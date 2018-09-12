@@ -33,7 +33,7 @@ touch .env
 // SESSION_SECRET
 // You get the keys and secret from registering at the appropriate 
 // provider (ie. Twitter, Google, Facebook, Github)
-// Make sure you have added 'https://127.0.0.1:8080/_insert_provider_here/callback'
+// Make sure you have added 'https://localhost:8080/_insert_provider_here/callback'
 // in your callback settings for each provider
 npm run dev
 ```
