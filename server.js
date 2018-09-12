@@ -43,7 +43,7 @@ app.use(cors({
 app.use(session({ 
   secret: process.env.SESSION_SECRET, 
   resave: true, 
-  saveUninitialized: true 
+  saveUninitialized: true
 }))
 
 // Connecting sockets to the server and adding them to the request 
