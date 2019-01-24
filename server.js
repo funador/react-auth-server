@@ -55,7 +55,7 @@ app.set('io', io)
 // be responsive as soon as possible
 app.get('/wake-up', (req, res) => res.send('👍'))
 
-// Direct all other requests at our auth router
+// Direct other requests to the auth router
 app.use('/', authRouter)
 
 server.listen(process.env.PORT || 8080, () => {
