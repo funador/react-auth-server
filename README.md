@@ -42,7 +42,7 @@ npm run dev
 Everything is set up to deploy to Heroku, you just need to plug in the environment variables for the providers.
 
 ### Client
-Please follow the instructions [for setting up the client repo](https://github.com/funador/react-auth-client)
+Please follow the instructions [for setting up the client repo](https://github.com/funador/react-auth-client).
 
 ### Issues
-Something not working?  Please [open an issue](https://github.com/funador/react-auth-server/issues)
+Something not working?  Please [open an issue](https://github.com/funador/react-auth-server/issues) or submit a PR.
