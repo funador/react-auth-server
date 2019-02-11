@@ -1,6 +1,8 @@
-const providers = ['twitter', 'google', 'facebook', 'github']
+const { ExtractJwt } = require('passport-jwt')
 
-const callbacks = providers.map(provider => {
+exports.providers = ['twitter', 'google', 'facebook', 'github']
+
+const callbacks = this.providers.map(provider => {
   return process.env.NODE_ENV === 'production'
     ? `https://react-auth-twitter.herokuapp.com/${provider}/callback`
     : `https://localhost:8080/${provider}/callback`
@@ -16,6 +18,7 @@ exports.TWITTER_CONFIG = {
   consumerKey: process.env.TWITTER_KEY,
   consumerSecret: process.env.TWITTER_SECRET,
   callbackURL: twitterURL,
+  userProfileURL  : 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true'
 }
 
 exports.GOOGLE_CONFIG = {
@@ -36,3 +39,20 @@ exports.GITHUB_CONFIG = {
   clientSecret: process.env.GITHUB_SECRET,
   callbackURL: githubURL
 }
+
+const JWT_SECRET = process.env.JWT_SECRET
+exports.JWT_SECRET = JWT_SECRET
+
+exports.JWT_CONFIG = {
+  secretOrKey: JWT_SECRET,
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
+  algorithms: ['HS256']
+}
+
+exports.DB_URL = process.env.NODE_ENV === 'production'
+  ? process.env.PRODUCTION_DB_URL
+  : 'mongodb://localhost/react-social-auth'
+
+exports.PORT = process.env.PORT || 8080
+
+exports.JWT_EXPIRY = process.env.JWT_EXPIRY

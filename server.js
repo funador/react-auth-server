@@ -8,9 +8,10 @@ const passport = require('passport')
 const session = require('express-session')
 const cors = require('cors')
 const socketio = require('socket.io')
+const mongoose = require('mongoose')
 const authRouter = require('./lib/auth.router')
 const passportInit = require('./lib/passport.init')
-const { SESSION_SECRET, CLIENT_ORIGIN } = require('./config')
+const { DB_URL, PORT, CLIENT_ORIGIN } = require('./config')
 const app = express()
 let server
 
@@ -58,6 +59,17 @@ app.get('/wake-up', (req, res) => res.send('👍'))
 // Direct other requests to the auth router
 app.use('/', authRouter)
 
-server.listen(process.env.PORT || 8080, () => {
-  console.log('listening...')
+// To get rid of all those semi-annoying Mongoose deprecation warnings.
+const options = {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useFindAndModify: false
+}
+
+// Connecting the database and then starting the app.
+mongoose.connect(DB_URL, options, () => {
+  server.listen(PORT, () => console.log('👍'))
 })
+// The most likely reason connecting the database would error out is because 
+// Mongo has not been started in a separate terminal.
+.catch(err => console.log(err))
