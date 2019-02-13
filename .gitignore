@@ -9,6 +9,7 @@
 # production
 /build
 /certs
+sessions/
 
 # misc
 .DS_Store
@@ -22,3 +23,4 @@ todos.txt
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+

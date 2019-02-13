@@ -18,26 +18,30 @@ exports.TWITTER_CONFIG = {
   consumerKey: process.env.TWITTER_KEY,
   consumerSecret: process.env.TWITTER_SECRET,
   callbackURL: twitterURL,
-  userProfileURL  : 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true'
+  userProfileURL  : 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true',
+  passReqToCallback: true
 }
 
 exports.GOOGLE_CONFIG = {
   clientID: process.env.GOOGLE_KEY,
   clientSecret: process.env.GOOGLE_SECRET,
-  callbackURL: googleURL
+  callbackURL: googleURL,
+  passReqToCallback: true
 }
 
 exports.FACEBOOK_CONFIG = {
   clientID: process.env.FACEBOOK_KEY,
   clientSecret: process.env.FACEBOOK_SECRET,
   profileFields: ['id', 'emails', 'name', 'picture.width(250)'],
-  callbackURL: facebookURL
+  callbackURL: facebookURL,
+  passReqToCallback: true
 }
 
 exports.GITHUB_CONFIG = {
   clientID: process.env.GITHUB_KEY,
   clientSecret: process.env.GITHUB_SECRET,
-  callbackURL: githubURL
+  callbackURL: githubURL,
+  passReqToCallback: true
 }
 
 const JWT_SECRET = process.env.JWT_SECRET
