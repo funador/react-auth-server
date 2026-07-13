@@ -2,31 +2,42 @@
   "name": "social-auth-server",
   "version": "0.0.1",
   "description": "Server for React/Node Social auth",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server"
+    "dev": "ts-node-dev --respawn server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "cors": "^2.8.4",
-    "dotenv": "^5.0.1",
-    "express": "^4.16.3",
-    "express-session": "^1.15.6",
-    "https": "^1.0.0",
-    "passport": "^0.4.0",
-    "passport-facebook": "^2.1.1",
-    "passport-github": "^1.1.0",
-    "passport-google-oauth": "^1.0.0",
+    "connect-redis": "^9.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "express-session": "^1.19.0",
+    "passport": "^0.7.0",
+    "passport-facebook": "^3.0.0",
+    "passport-github2": "^0.1.12",
+    "passport-google-oauth20": "^2.0.0",
     "passport-twitter": "^1.0.4",
-    "path": "^0.12.7",
-    "request": "^2.86.0",
-    "request-promise": "^4.2.2",
-    "socket.io": "^2.1.1"
+    "redis": "^6.1.0",
+    "socket.io": "^4.8.3"
   },
   "author": "funador",
   "license": "MIT",
+  "overrides": {
+    "xmldom": "^0.6.0"
+  },
   "devDependencies": {
-    "nodemon": "^1.17.4"
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.21",
+    "@types/express-session": "^1.19.0",
+    "@types/node": "^22.10.5",
+    "@types/passport": "^1.0.17",
+    "@types/passport-facebook": "^3.0.4",
+    "@types/passport-github2": "^1.2.9",
+    "@types/passport-google-oauth20": "^2.0.17",
+    "@types/passport-twitter": "^1.0.40",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.3"
   }
 }
