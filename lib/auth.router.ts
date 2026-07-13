@@ -4,11 +4,16 @@ import * as authController from './auth.controller'
 
 const router = express.Router()
 
-// Setting up the passport middleware for each of the OAuth providers
-const twitterAuth = passport.authenticate('twitter')
-const googleAuth = passport.authenticate('google', { scope: ['profile'] })
-const facebookAuth = passport.authenticate('facebook')
-const githubAuth = passport.authenticate('github')
+// Setting up the passport middleware for each of the OAuth providers.
+// keepSessionInfo is required as of Passport 0.6 - by default it now
+// regenerates the session (a new session ID, everything on it wiped) on
+// every successful login to guard against session fixation, which would
+// otherwise silently wipe the socketId we stash below before our own
+// callback controller ever gets to read it
+const twitterAuth = passport.authenticate('twitter', { keepSessionInfo: true })
+const googleAuth = passport.authenticate('google', { scope: ['profile'], keepSessionInfo: true })
+const facebookAuth = passport.authenticate('facebook', { keepSessionInfo: true })
+const githubAuth = passport.authenticate('github', { keepSessionInfo: true })
 
 // Routes that are triggered by the callbacks from each OAuth provider once
 // the user has authenticated successfully
