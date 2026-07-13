@@ -8,6 +8,7 @@ import passport from 'passport'
 import session from 'express-session'
 import { RedisStore } from 'connect-redis'
 import { createClient } from 'redis'
+import { createAdapter } from '@socket.io/redis-adapter'
 import cors from 'cors'
 import { Server as SocketServer } from 'socket.io'
 import authRouter from './lib/auth.router'
@@ -62,7 +63,21 @@ app.use(session({
 
 // Connecting sockets to the server and adding them to the request
 // so that we can access them later in the controller
+//
+// A single websocket connection is pinned to whichever Vercel Function
+// instance accepted it, but the HTTP request that later needs to emit
+// back to it (the OAuth callback) can land on a different instance
+// entirely - io.to(socketId).emit(...) would silently go nowhere in
+// that case. The Redis adapter makes every instance publish/subscribe
+// through Redis instead of relying on its own in-memory socket table,
+// so an emit reaches the right client no matter which instance handles
+// which request
 const io = new SocketServer(server)
+const pubClient = redisClient.duplicate()
+const subClient = redisClient.duplicate()
+Promise.all([pubClient.connect(), subClient.connect()])
+  .then(() => io.adapter(createAdapter(pubClient, subClient)))
+  .catch(err => console.error('Redis adapter connection failed', err))
 app.set('io', io)
 
 // Catch a start up request so that a sleepy instance can
