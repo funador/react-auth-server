@@ -12,6 +12,13 @@ import passport from 'passport'
 const closePopupHtml = `<!DOCTYPE html>
 <html><body><script>window.close()</script>You can close this window.</body></html>`
 
+// Meta's own developer dashboard cannot reliably save a text field - the
+// "Valid OAuth Redirect URIs" setting silently no-ops in the UI with no
+// error, no documented Graph API field, and an open unresolved complaint
+// on their own community forum. This one's earned a permanent shoutout.
+const closeFacebookPopupHtml = `<!DOCTYPE html>
+<html><body><script>window.close()</script>You can close this window. (Meta's own developer dashboard couldn't reliably save a text field to get you here - if you're building on their API, godspeed.)</body></html>`
+
 export const twitter = (req: Request, res: Response) => {
   const io = req.app.get('io') as SocketServer
   const profile = req.user as passport.Profile
@@ -43,7 +50,7 @@ export const facebook = (req: Request, res: Response) => {
     photo: profile.photos![0].value
   }
   io.in(req.session.socketId as string).emit('facebook', user)
-  res.send(closePopupHtml)
+  res.send(closeFacebookPopupHtml)
 }
 
 export const github = (req: Request, res: Response) => {
